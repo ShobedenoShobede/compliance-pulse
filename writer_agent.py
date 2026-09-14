@@ -80,7 +80,7 @@ def save_draft(analysis):
     print(f"Word count: {len(analysis.split())}")
 
 
-# Optional: Publish to Substack (requires cookies in env)
+# Publish to Substack (requires cookies in env)
 def publish_to_substack(analysis):
     from substack import Api
     from substack.post import Post

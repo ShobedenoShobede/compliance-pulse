@@ -1,0 +1,68 @@
+import os
+import json
+from groq import Groq
+from datetime import datetime
+
+# --- CONFIG ---
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+SUBSTACK_URL = os.environ.get("SUBSTACK_URL", "https://yourname.substack.com")
+
+client = Groq(api_key=GROQ_API_KEY)
+
+PROMPT_TEMPLATE = """You are a regulatory intelligence analyst writing for fintech compliance professionals.
+
+Today's date: {date}
+
+Here are the regulatory updates detected today:
+{updates}
+
+Write an 800-word plain-English analysis. Structure:
+1. HEADLINE (attention-grabbing, specific)
+2. WHAT HAPPENED (2-3 paragraphs, factual)
+3. WHY IT MATTERS (2-3 paragraphs, practical implications for fintech compliance teams)
+4. WHAT TO DO (3-5 bullet action items)
+
+Tone: Direct, professional, no jargon. Write for a busy compliance officer who has 5 minutes.
+Do NOT include a call-to-action or subscription pitch. That goes in the separate teaser.
+"""
+
+def load_intel():
+    with open("raw_intel.json", "r") as f:
+        items = json.load(f)
+    # Take top 5 most recent for the prompt
+    return items[:5]
+
+def generate_analysis(items):
+    updates_text = "\n\n".join([
+        f"[{i['source']}] {i['title']}\n{i['summary']}\nLink: {i['link']}"
+        for i in items
+    ])
+    
+    prompt = PROMPT_TEMPLATE.format(
+        date=datetime.now().strftime("%B %d, %Y"),
+        updates=updates_text
+    )
+    
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        max_tokens=1500
+    )
+    
+    return response.choices[0].message.content
+
+def save_draft(analysis):
+    filename = f"draft_{datetime.now().strftime('%Y%m%d')}.md"
+    with open(filename, "w") as f:
+        f.write(analysis)
+    print(f"Draft saved: {filename}")
+    print(f"Word count: {len(analysis.split())}")
+
+if __name__ == "__main__":
+    intel = load_intel()
+    if not intel:
+        print("No intel found. Run curator_agent.py first.")
+    else:
+        analysis = generate_analysis(intel)
+        save_draft(analysis)

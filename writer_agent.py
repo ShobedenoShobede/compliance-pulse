@@ -45,7 +45,10 @@ def load_intel():
     return items[:5]
 
 def generate_analysis(items):
-    updates_text = "\n\n".join([
+        MODEL = get_working_model(client)
+response = client.chat.completions.create(
+    model=MODEL,
+        updates_text = "\n\n".join([
         f"[{i['source']}] {i['title']}\n{i['summary']}\nLink: {i['link']}"
         for i in items
     ])

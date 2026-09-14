@@ -3,6 +3,18 @@ import json
 from groq import Groq
 from datetime import datetime
 
+def get_working_model(client):
+    """Fetch available models and pick the best chat model."""
+    try:
+        models = client.models.list()
+        available = [m.id for m in models.data]
+        # Preference order: GPT-OSS 120B → Qwen 3.6 27B → Llama 3.1 8B
+        for preferred in ["openai/gpt-oss-120b", "qwen/qwen3.6-27b", "llama-3.1-8b-instant"]:
+            if preferred in available:
+                return preferred
+        return available[0] if available else "llama-3.1-8b-instant"
+    except Exception:
+        return "openai/gpt-oss-120b"  # Fallback
 # --- CONFIG ---
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 SUBSTACK_URL = os.environ.get("SUBSTACK_URL", "https://yourname.substack.com")

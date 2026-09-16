@@ -25,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+             pup install feedparser grow requests substack
 
       - name: Run Curator Agent
         env:

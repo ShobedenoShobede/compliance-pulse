@@ -25,7 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-             feedparser groq requests python-substack
 
       - name: Run Curator Agent
         env:

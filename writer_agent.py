@@ -111,5 +111,5 @@ if __name__ == "__main__":
         print("No intel found. Run curator_agent.py first.")
     else:
         analysis = generate_analysis(intel)
-      # save_draft(analysis)
+        save_draft(analysis)
       # publish_to_substack(analysis)

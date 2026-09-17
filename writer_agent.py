@@ -112,4 +112,4 @@ if __name__ == "__main__":
     else:
         analysis = generate_analysis(intel)
         save_draft(analysis)
-      # publish_to_substack(analysis)
+        print("Draft ready. Publish manually to Substack.")

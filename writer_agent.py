@@ -103,7 +103,7 @@ def publish_to_substack(analysis):
 
 
 if __name__ == "__main__":
-    intel = load_intel()
+    intel d= load_intel()
     if not intel:
         print("No intel found. Run curator_agent.py first.")
     else:

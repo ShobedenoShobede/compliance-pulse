@@ -34,8 +34,7 @@ jobs:
       - name: Run Writer Agent
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          SUBSTACK_EMAIL: ${{ secrets.SUBSTACK_EMAIL }}
-          SUBSTACK_PASSWORD: ${{ secrets.SUBSTACK_PASSWORD }}
+          SUBSTACK_COOKIE: ${{ secrets.SUBSTACK_COOKIE }}
           SUBSTACK_USER_ID: ${{ secrets.SUBSTACK_USER_ID }}
           SUBSTACK_URL: ${{ secrets.SUBSTACK_URL }}
         run: python writer_agent.py

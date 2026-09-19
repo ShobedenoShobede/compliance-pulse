@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- CONFIG (change per newsletter) ---
 NEWSLETTER_NAME = os.environ.get("NEWSLETTER_NAME", "COMPLIANCE PULSE")
-TAGLINE = os.environ.get("TAGLINE", "Daily briefing for FinTech compliance teams")
+TAGLINE = os.environ.get("TAGLINE", "Constant briefing for FinTech compliance teams")
 ACCENT = "#3B82F6"      # blue accent
 BG = "#0F172A"          # slate-900 background
 

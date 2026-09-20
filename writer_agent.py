@@ -80,7 +80,8 @@ def save_draft(analysis):
     print(f"Word count: {len(analysis.split())}")
 
 
-# Publish to Substack (requires cookies in env)
+
+ Publish to Substack (requires cookies in env)
 def publish_to_substack(analysis):
     cookie_string = os.environ.get("SUBSTACK_COOKIE")
     print(f"[DEBUG] Cookie length: {len(cookie_string) if cookie_string else 0}")

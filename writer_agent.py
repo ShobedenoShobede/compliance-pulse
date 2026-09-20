@@ -83,7 +83,7 @@ def save_draft(analysis):
 def publish_to_substack(analysis):
     cookie_string = os.environ.get("SUBSTACK_COOKIE")
     print(f"[DEBUG] Cookie length: {len(cookie_string) if cookie_string else 0}")
-    print(f"[DEBUG] Cookie preview: {cookie_string[:50] if cookie_string else "EMPTY"}"):
+    print(f"[DEBUG] Cookie preview: {cookie_string[:50] if cookie_string else 'EMPTY'}"):
     from substack import Api
     from substack.post import Post
 
